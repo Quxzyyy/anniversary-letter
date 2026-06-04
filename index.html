@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Netflix-ku</title>
+    <link rel="icon" type="image/png" href="images/netflix.png" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <audio id="bg-music" src="images/ocean.mp3" loop></audio>
+
+    <div id="profile-screen">
+      <h1>Who's watching?</h1>
+      <div class="profile-container">
+        <div class="profile-card" onclick="selectProfile('Sayang')">
+          <div class="profile-avatar avatar-1"></div>
+          <div class="profile-name">Sayang ❤️</div>
+        </div>
+        <div class="profile-card" onclick="selectProfile('Aku')">
+          <div class="profile-avatar avatar-2"></div>
+          <div class="profile-name">Kamu</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="intro-screen">
+      <video
+        id="netflix-intro-video"
+        src="images/netflix.mp4"
+        playsinline
+      ></video>
+    </div>
+
+    <div id="main-content">
+      <nav class="navbar">
+        <div class="brand-logo">NETFLIX</div>
+      </nav>
+
+      <header class="banner">
+        <div class="banner-contents" id="banner-text">
+          <h1 class="banner-title">Our Story: Season 1</h1>
+          <div class="banner-info">
+            100% Match for Us · 1 Season · Ultra HD 4K
+          </div>
+          <p class="banner-description">
+            Kisah nyata perjalanan cinta kita selama 365 hari ke belakang. Penuh
+            dengan episode seru, komedi random, drama ngambek gemes, dan ribuan
+            momen bahagia bersama.
+          </p>
+          <div class="banner-buttons">
+            <button class="btn btn-play" onclick="toggleMusic()">
+              ▶ Play Music
+            </button>
+            <button class="btn btn-info" onclick="openLetterModal()">
+              ⓘ More Info
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div class="rows-container" id="movie-rows">
+        <div class="row">
+          <h2 class="row-title">Trending Now (Momen Paling Berkesan)</h2>
+          <div class="row-posters">
+            <img
+              class="media-item"
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400"
+              onclick="zoomMedia(this)"
+            />
+            <video
+              class="media-item"
+              src="https://assets.mixkit.co/videos/preview/mixkit-romantic-couple-holding-hands-walking-on-beach-43224-large.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              onclick="zoomMedia(this)"
+            ></video>
+            <img
+              class="media-item"
+              src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=400"
+              onclick="zoomMedia(this)"
+            />
+            <video
+              class="media-item"
+              src="https://assets.mixkit.co/videos/preview/mixkit-couple-in-love-sitting-on-the-beach-at-sunset-43252-large.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              onclick="zoomMedia(this)"
+            ></video>
+            <img
+              class="media-item"
+              src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400"
+              onclick="zoomMedia(this)"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <h2 class="row-title">Romantic Comedies (Kompilasi Lucu)</h2>
+          <div class="row-posters">
+            <video
+              class="media-item"
+              src="https://assets.mixkit.co/videos/preview/mixkit-couple-sitting-on-the-couch-eating-popcorn-43265-large.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              onclick="zoomMedia(this)"
+            ></video>
+            <img
+              class="media-item"
+              src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?q=80&w=400"
+              onclick="zoomMedia(this)"
+            />
+            <video
+              class="media-item"
+              src="https://assets.mixkit.co/videos/preview/mixkit-playful-couple-doing-piggyback-ride-in-the-park-43242-large.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              onclick="zoomMedia(this)"
+            ></video>
+            <img
+              class="media-item"
+              src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=400"
+              onclick="zoomMedia(this)"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="love-modal" class="modal">
+      <div class="modal-content">
+        <button class="close-modal" onclick="closeModal('love-modal')">
+          ✕
+        </button>
+        <div class="modal-body">
+          <h2>Our 1st Anniversary Letter 💌</h2>
+          <p class="modal-text">
+            Hai Sayang! Selamat hari jadi yang ke-1 tahun ya. Terima kasih
+            banyak sudah bertahan sama aku sejauh ini... ❤️
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="media-modal" class="modal">
+      <button class="close-modal" onclick="closeModal('media-modal')">✕</button>
+      <div id="media-preview-container"></div>
+    </div>
+
+    <script>
+      function selectProfile(name) {
+        const profileScreen = document.getElementById("profile-screen");
+        const introScreen = document.getElementById("intro-screen");
+        const introVideo = document.getElementById("netflix-intro-video");
+        const mainContent = document.getElementById("main-content");
+        const bannerText = document.getElementById("banner-text");
+        const movieRows = document.getElementById("movie-rows");
+        const music = document.getElementById("bg-music");
+
+        profileScreen.style.animation = "profileFadeOut 0.5s ease forwards";
+
+        setTimeout(() => {
+          profileScreen.style.display = "none";
+          introScreen.style.display = "flex";
+
+          introVideo.play().catch((err) => {
+            console.log("Autoplay intro ditolak browser, skip.");
+            showMainPage();
+          });
+
+          introVideo.onended = function () {
+            showMainPage();
+          };
+        }, 500);
+
+        function showMainPage() {
+          introScreen.style.transition = "opacity 0.8s ease";
+          introScreen.style.opacity = "0";
+
+          setTimeout(() => {
+            introScreen.style.display = "none";
+            mainContent.style.display = "block";
+
+            bannerText.classList.add("animate-banner");
+            movieRows.classList.add("animate-rows");
+
+            setTimeout(() => {
+              mainContent.style.opacity = "1";
+            }, 50);
+
+            music.play().catch((err) => console.log("Musik diblokir sistem."));
+          }, 800);
+        }
+      }
+
+      function toggleMusic() {
+        const music = document.getElementById("bg-music");
+        const btn = document.querySelector(".btn-play");
+        if (music.paused) {
+          music.play();
+          btn.innerHTML = "⏸ Pause Music";
+        } else {
+          music.pause();
+          btn.innerHTML = "▶ Play Music";
+        }
+      }
+
+      function openLetterModal() {
+        const modal = document.getElementById("love-modal");
+        modal.style.display = "flex";
+        setTimeout(() => {
+          modal.classList.add("open");
+        }, 10);
+      }
+
+      function zoomMedia(element) {
+        const mediaModal = document.getElementById("media-modal");
+        const container = document.getElementById("media-preview-container");
+        container.innerHTML = "";
+
+        if (element.tagName.toLowerCase() === "video") {
+          const videoClone = document.createElement("video");
+          videoClone.src = element.src;
+          videoClone.controls = true;
+          videoClone.autoplay = true;
+          container.appendChild(videoClone);
+        } else if (element.tagName.toLowerCase() === "img") {
+          const imgClone = document.createElement("img");
+          imgClone.src = element.src;
+          container.appendChild(imgClone);
+        }
+        mediaModal.style.display = "flex";
+        setTimeout(() => {
+          mediaModal.classList.add("open");
+        }, 10);
+      }
+
+      function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.remove("open");
+        setTimeout(() => {
+          modal.style.display = "none";
+          if (modalId === "media-modal") {
+            document.getElementById("media-preview-container").innerHTML = "";
+          }
+        }, 300);
+      }
+    </script>
+  </body>
+</html>

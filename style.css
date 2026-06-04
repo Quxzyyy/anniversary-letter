@@ -1,0 +1,453 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght=300;400;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: #141414;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* --- KEYFRAMES ANIMASI --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes profileFadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1);
+    filter: blur(5px);
+  }
+}
+
+/* --- 1. SCREEN WHO'S WATCHING --- */
+#profile-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #141414;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+#profile-screen h1 {
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  text-align: center;
+  animation: zoomIn 0.8s ease forwards;
+}
+
+.profile-container {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.profile-card {
+  text-align: center;
+  cursor: pointer;
+  width: 110px;
+}
+
+.profile-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 4px;
+  background-size: cover;
+  background-position: center;
+  border: 3px solid transparent;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.avatar-1 {
+  background-image: url("https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200");
+}
+.avatar-2 {
+  background-image: url("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200");
+}
+
+.profile-card:hover .profile-avatar {
+  border-color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.profile-name {
+  margin-top: 12px;
+  color: #808080;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.profile-card:hover .profile-name {
+  color: #fff;
+}
+
+/* --- SCREEN INTRO VIDEO NETFLIX --- */
+#intro-screen {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: 998;
+  justify-content: center;
+  align-items: center;
+}
+
+#netflix-intro-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- 2. HALAMAN UTAMA NETFLIX --- */
+#main-content {
+  display: none;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 15px 4%;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 100;
+}
+
+.brand-logo {
+  color: #e50914;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.banner {
+  position: relative;
+  height: 70vh;
+  background:
+    linear-gradient(
+      to top,
+      #141414 0%,
+      rgba(20, 20, 20, 0.1) 60%,
+      rgba(20, 20, 20, 0.7) 100%
+    ),
+    url("https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=1200")
+      no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  padding: 0 4%;
+}
+
+.banner-contents {
+  max-width: 600px;
+  margin-top: 40px;
+  opacity: 0;
+}
+
+.animate-banner {
+  animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.banner-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
+}
+
+.banner-info {
+  font-size: 1rem;
+  margin-bottom: 12px;
+  color: #46d369;
+  font-weight: 700;
+}
+
+.banner-description {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+  color: #e5e5e5;
+}
+
+.banner-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 10px 22px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.btn-play {
+  background-color: #fff;
+  color: #000;
+}
+.btn-play:hover {
+  background-color: rgba(255, 255, 255, 0.75);
+  transform: scale(1.03);
+}
+.btn-info {
+  background-color: rgba(109, 109, 110, 0.7);
+  color: #fff;
+}
+.btn-info:hover {
+  background-color: rgba(109, 109, 110, 0.4);
+  transform: scale(1.03);
+}
+
+/* --- 3. MOVIE ROWS (PORTRAIT FORMAT FOR PHONE SHOTS/VT) --- */
+.rows-container {
+  padding: 0 4% 40px 4%;
+  margin-top: -30px;
+  position: relative;
+  z-index: 10;
+  opacity: 0;
+}
+
+.animate-rows {
+  animation: fadeInUp 1.4s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards;
+}
+
+.row {
+  margin-bottom: 25px;
+}
+
+.row-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #e5e5e5;
+}
+
+.row-posters {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 12px;
+  padding: 15px 0;
+  scroll-behavior: smooth;
+}
+
+.row-posters::-webkit-scrollbar {
+  display: none;
+}
+.row-posters {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.media-item {
+  height: 280px;
+  min-width: 180px;
+  object-fit: cover;
+  border-radius: 6px;
+  transition:
+    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.4s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  background-color: #222;
+}
+
+.media-item:hover {
+  transform: scale(1.06);
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.8),
+    0 0 12px rgba(229, 9, 20, 0.5);
+  z-index: 99;
+}
+
+/* --- 4. MODALS (SURAT & ZOOM) --- */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background-color: #181818;
+  max-width: 550px;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+  transform: scale(0.8);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.modal.open .modal-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1010;
+  transition: all 0.2s;
+}
+.close-modal:hover {
+  background: #fff;
+  color: #000;
+}
+
+.modal-body {
+  padding: 25px;
+}
+.modal-body h2 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+.modal-text {
+  color: #d2d2d2;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin-top: 15px;
+}
+
+#media-preview-container {
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#media-preview-container img,
+#media-preview-container video {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 4px;
+  animation: zoomIn 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* --- 5. MEDIA QUERIES (RESPONSIF HP-MOBILE) --- */
+@media (max-width: 768px) {
+  #profile-screen h1 {
+    font-size: 2rem;
+    margin-bottom: 25px;
+  }
+  .profile-card {
+    width: 95px;
+  }
+  .profile-avatar {
+    width: 95px;
+    height: 95px;
+  }
+
+  .banner {
+    height: 60vh;
+  }
+  .banner-title {
+    font-size: 2.2rem;
+  }
+  .banner-description {
+    font-size: 0.85rem;
+  }
+  .btn {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
+
+  .media-item {
+    height: 190px;
+    min-width: 120px;
+  }
+
+  .row-title {
+    font-size: 1rem;
+  }
+  .modal-body h2 {
+    font-size: 1.3rem;
+  }
+  .modal-text {
+    font-size: 0.85rem;
+  }
+}
