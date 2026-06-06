@@ -100,10 +100,15 @@ body {
 }
 
 .avatar-1 {
-  background-image: url("images/1.jpg");
+  background-image: url("images/1.JPG");
+  background-size: cover;
+  background-position: center;
 }
+
 .avatar-2 {
-  background-image: url("images/2.jpg");
+  background-image: url("images/2.JPG");
+  background-size: cover;
+  background-position: center;
 }
 
 .profile-card:hover .profile-avatar {
